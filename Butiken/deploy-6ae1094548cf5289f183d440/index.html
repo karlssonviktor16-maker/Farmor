@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Farmor stickar</title>
+  <meta name="description" content="Handstickade leksaker i limiterade upplagor. Beställ enkelt och betala med Swish.">
+  <style>
+    :root {
+      --primary: #2563eb;
+      --bg: #f8fafc;
+      --card-bg: #ffffff;
+      --text: #1e293b;
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+      margin: 0;
+      padding: 1.5rem;
+    }
+    .container {
+      max-width: 760px;
+      margin: 0 auto;
+    }
+    header {
+      text-align: center;
+      margin-bottom: 2.5rem;
+    }
+    header h1 { margin-bottom: 0.5rem; }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 3rem;
+    }
+    .card {
+      background: var(--card-bg);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+      border: 1px solid #e2e8f0;
+      display: flex;
+      flex-direction: column;
+    }
+    .card img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      background: #e2e8f0;
+    }
+    .card-body {
+      padding: 1rem;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .card h3 { margin: 0 0 0.5rem; font-size: 1.1rem; }
+    .card p { margin: 0 0 1rem; font-size: 0.9rem; color: #64748b; }
+    .price { font-weight: bold; color: var(--primary); font-size: 1.15rem; }
+
+    /* Beställningsformulär */
+    .order-section {
+      background: var(--card-bg);
+      border-radius: 12px;
+      padding: 1.5rem;
+      border: 1px solid #e2e8f0;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    }
+    .form-group {
+      margin-bottom: 1rem;
+    }
+    label {
+      display: block;
+      font-weight: 600;
+      font-size: 0.85rem;
+      margin-bottom: 0.3rem;
+    }
+    input, select, textarea {
+      width: 100%;
+      padding: 0.65rem;
+      border: 1px solid #cbd5e1;
+      border-radius: 6px;
+      box-sizing: border-box;
+      font-size: 0.95rem;
+    }
+    .swish-box {
+      background: #eff6ff;
+      border-left: 4px solid var(--primary);
+      padding: 1rem;
+      border-radius: 0 6px 6px 0;
+      margin: 1.5rem 0;
+      font-size: 0.9rem;
+    }
+    button {
+      width: 100%;
+      background: var(--primary);
+      color: white;
+      border: none;
+      padding: 0.85rem;
+      border-radius: 6px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    button:hover { background: #1d4ed8; }
+    footer {
+      text-align: center;
+      font-size: 0.8rem;
+      color: #64748b;
+      margin-top: 2rem;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <header>
+      <h1>Farmor stickar</h1>
+      <p>Passionsprojekt – limiterade upplagor, skickas inom 2 vardagar.</p>
+    </header>
+
+    <!-- Produkter -->
+    <div class="grid">
+      <div class="card">
+        <img src="bilder/pryl1.jpg" alt="Träskål" onerror="this.src='https://placehold.co/400x300?text=Bild+1'">
+        <div class="card-body">
+          <div>
+            <h3>Träskål i Ek</h3>
+            <p>Handgjord och inoljad med ekologisk linolja.</p>
+          </div>
+          <div class="price">199 kr</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <img src="bilder/pryl2.jpg" alt="Nyckelring" onerror="this.src='https://placehold.co/400x300?text=Bild+2'">
+        <div class="card-body">
+          <div>
+            <h3>Nyckelring i Läder</h3>
+            <p>Tjockt vegetabiliskt garvat läder med mässingsring.</p>
+          </div>
+          <div class="price">99 kr</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Formulär -->
+    <div class="order-section">
+      <h2 style="margin-top:0;">Beställningsformulär</h2>
+      
+      <!-- Netlify tar emot beställningarna (Netlify Forms). Kunden skickas sedan till tack-sidan. -->
+      <form name="bestallning" action="/tack" method="POST" data-netlify="true" netlify-honeypot="bot-field">
+        <!-- Ämnesrad i mejlet du får -->
+        <input type="hidden" name="subject" value="Ny beställning från webbshoppen (%{submissionId})">
+
+        <div class="form-group">
+          <label for="vara">Välj leksak</label>
+          <select id="vara" name="vara" required>
+            <option value="Träskål (199 kr)">Träskål i Ek – 199 kr</option>
+            <option value="Nyckelring (99 kr)">Nyckelring i Läder – 99 kr</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="antal">Antal</label>
+          <input type="number" id="antal" name="antal" min="1" max="10" value="1" required>
+        </div>
+
+        <div class="form-group">
+          <label for="namn">Fullständigt namn</label>
+          <input type="text" id="namn" name="namn" required autocomplete="name" placeholder="Förnamn Efternamn">
+        </div>
+
+        <div class="form-group">
+          <label for="email">E-post (för orderbekräftelse)</label>
+          <input type="email" id="email" name="email" required autocomplete="email" placeholder="namn@exempel.se">
+        </div>
+
+        <div class="form-group">
+          <label for="adress">Leveransadress</label>
+          <textarea id="adress" name="adress" rows="3" required autocomplete="street-address" placeholder="Gatuadress, Postnummer, Postort"></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="telefon">Telefonnummer (kopplat till Swish)</label>
+          <input type="tel" id="telefon" name="telefon" required autocomplete="tel" placeholder="070-123 45 67">
+        </div>
+
+        <div class="form-group">
+          <label for="meddelande">Meddelande (valfritt)</label>
+          <textarea id="meddelande" name="meddelande" rows="2" placeholder="Önskemål eller frågor"></textarea>
+        </div>
+
+        <!-- Fälla för spam-robotar. Osynlig för människor – rör inte. -->
+        <p style="display:none"><label>Fyll inte i detta: <input name="bot-field" tabindex="-1" autocomplete="off"></label></p>
+
+        <div class="swish-box">
+          <strong>Så här fungerar betalningen:</strong><br>
+          1. Klicka på "Skicka beställning" nedan.<br>
+          2. Du får ett mejl med totalbelopp (inkl. frakt) och Swish-nummer.<br>
+          3. Swisha beloppet och skriv ditt namn i meddelandefältet.<br>
+          <em>Jag skickar varan så fort betalningen syns!</em>
+        </div>
+
+        <button type="submit">Skicka beställning</button>
+      </form>
+    </div>
+
+    <footer>
+      Frågor? Skriv dem i meddelandefältet ovan, så svarar jag via mejl.
+    </footer>
+  </div>
+
+</body>
+</html>
